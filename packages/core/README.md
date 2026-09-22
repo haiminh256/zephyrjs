@@ -1,8 +1,8 @@
-# @zephyr/core
+# @quantum-js/core
 
 A lightweight reactive JavaScript framework.
 
 ## Installation
 
 ```bash
-npm install @zephyr/core
+npm install @quantum-js/core

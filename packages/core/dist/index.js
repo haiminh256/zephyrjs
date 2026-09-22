@@ -1,7 +1,7 @@
 import {
   For,
   Fragment,
-  Zephyr,
+  quantum-js,
   callback,
   effect,
   jsx,
@@ -13,7 +13,7 @@ import {
 export {
   For,
   Fragment,
-  Zephyr,
+  quantum-js,
   callback,
   effect,
   jsx2 as jsx,

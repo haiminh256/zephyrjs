@@ -1,4 +1,4 @@
-import { Zephyr, Fragment } from "./index";
+import { quantum-js, Fragment } from "./index";
 
 export function jsx(tag: any, props: any) {
   const { children, ...restProps } = props || {};
@@ -10,7 +10,7 @@ export function jsx(tag: any, props: any) {
     finalChildren = [];
   }
 
-  return Zephyr(tag, restProps, ...(Array.isArray(finalChildren) ? finalChildren : [finalChildren]));
+  return quantum-js(tag, restProps, ...(Array.isArray(finalChildren) ? finalChildren : [finalChildren]));
 }
 
 export { jsx as jsxs, Fragment };

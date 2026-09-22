@@ -10,7 +10,7 @@
     "strict": true,
     "skipLibCheck": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "@zephyr/core"
+    "jsxImportSource": "@quantum-js/core"
   },
   "include": ["src/**/*"],
   "exclude": ["src/jsx-runtime.d.ts"]
