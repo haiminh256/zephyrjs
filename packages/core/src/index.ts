@@ -168,9 +168,12 @@ export function fluxonjs(
 
 export const jsx = { createElement: fluxonjs };
 
-export function render(component: () => HTMLElement, container: HTMLElement) {
-  container.innerHTML = "";
-  container.appendChild(component());
+export function render(
+  code: Element | DocumentFragment | (() => Element | DocumentFragment | Node), 
+  container: HTMLElement
+): void {
+  const node = typeof code === "function" ? code() : code;
+  container.appendChild(node);
 }
 
 export function For<T>(props: ForProps<T>): DocumentFragment {
