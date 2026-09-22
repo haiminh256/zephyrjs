@@ -1,11 +1,11 @@
 {
-  "name": "zephyrjs",
+  "name": "fluxonjsjs",
   "version": "1.0.0",
   "description": "A javascript framework",
   "main": "index.js",
   "scripts": {
     "dev": "pnpm --filter playground dev",
-    "build:core": "pnpm --filter @zephyr/core build"
+    "build:core": "pnpm --filter @fluxonjs/core build"
   },
   "keywords": [],
   "author": "haiminh256",

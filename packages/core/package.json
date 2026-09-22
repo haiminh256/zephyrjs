@@ -1,5 +1,5 @@
 {
-  "name": "@quantum-js/core",
+  "name": "@fluxonjs/core",
   "version": "0.1.0",
   "type": "module",
   "description": "A lightweight reactive UI framework powered by Signals and Automatic JSX.",
@@ -32,7 +32,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "keywords": [
-    "quantum-js",
+    "fluxonjs",
     "framework",
     "jsx",
     "signal",

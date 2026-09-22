@@ -1,8 +1,8 @@
-# @quantum-js/core
+# @fluxonjs/core
 
 A lightweight reactive JavaScript framework.
 
 ## Installation
 
 ```bash
-npm install @quantum-js/core
+npm install @fluxonjs/core

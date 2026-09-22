@@ -10,7 +10,7 @@
     "strict": true,
     "skipLibCheck": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "@quantum-js/core"
+    "jsxImportSource": "@fluxonjs/core"
   },
   "include": ["src/**/*"],
   "exclude": ["src/jsx-runtime.d.ts"]

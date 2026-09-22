@@ -6,6 +6,6 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@zephyr/core": "workspace:*"
+    "@fluxonjs/core": "workspace:*"
   }
 }

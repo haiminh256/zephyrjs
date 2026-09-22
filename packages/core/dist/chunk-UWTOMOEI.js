@@ -60,7 +60,7 @@ function callback(fn) {
     return fn(...args);
   };
 }
-var Fragment = /* @__PURE__ */ Symbol("quantum-js.Fragment");
+var Fragment = /* @__PURE__ */ Symbol("fluxonjs.Fragment");
 function appendChildren(parent, children) {
   children.flat().forEach((child) => {
     if (child === null || child === void 0 || child === false) return;
@@ -79,7 +79,7 @@ function appendChildren(parent, children) {
     }
   });
 }
-function quantum-js(tag, props, ...children) {
+function fluxonjs(tag, props, ...children) {
   if (tag === Fragment) {
     const docFragment = document.createDocumentFragment();
     appendChildren(docFragment, children);
@@ -116,7 +116,7 @@ function quantum-js(tag, props, ...children) {
   appendChildren(element, children);
   return element;
 }
-var jsx = { createElement: quantum-js };
+var jsx = { createElement: fluxonjs };
 function render(component, container) {
   container.innerHTML = "";
   container.appendChild(component());
@@ -170,7 +170,7 @@ function jsx2(tag, props) {
   } else if (children === void 0) {
     finalChildren = [];
   }
-  return quantum-js(tag, restProps, ...Array.isArray(finalChildren) ? finalChildren : [finalChildren]);
+  return fluxonjs(tag, restProps, ...Array.isArray(finalChildren) ? finalChildren : [finalChildren]);
 }
 
 export {
@@ -180,9 +180,9 @@ export {
   memo,
   callback,
   Fragment,
-  quantum-js,
+  fluxonjs,
   jsx as jsx2,
   render,
   For
 };
-//# sourceMappingURL=chunk-TWRUA5BG.js.map
+//# sourceMappingURL=chunk-UWTOMOEI.js.map

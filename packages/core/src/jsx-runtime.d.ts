@@ -31,7 +31,7 @@ declare global {
   }
 }
 
-declare module "@quantum-js/core" {
+declare module "@fluxonjs/core" {
   export namespace JSX {
     type Element = globalThis.JSX.Element;
     type ElementType = globalThis.JSX.ElementType;
@@ -42,7 +42,7 @@ declare module "@quantum-js/core" {
   }
 }
 
-declare module "@quantum-js/core/jsx-runtime" {
+declare module "@fluxonjs/core/jsx-runtime" {
   export namespace JSX {
     type Element = globalThis.JSX.Element;
     type ElementType = globalThis.JSX.ElementType;

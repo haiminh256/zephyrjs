@@ -4,13 +4,13 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
-    "jsxImportSource": "@zephyr/core",
+    "jsxImportSource": "@fluxonjs/core",
     "skipLibCheck": true,
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@zephyr/core": ["../packages/core/src/index.ts"],
-      "@zephyr/core/jsx-runtime": ["../packages/core/src/jsx-runtime.ts"]
+      "@fluxonjs/core": ["../packages/core/src/index.ts"],
+      "@fluxonjs/core/jsx-runtime": ["../packages/core/src/jsx-runtime.ts"]
     }
   },
   "include": [

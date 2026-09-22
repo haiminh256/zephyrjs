@@ -1,4 +1,4 @@
-import { render, Zephyr } from "@zephyr/core";
+import { render, fluxonjs } from "@fluxonjs/core";
 import App from "./App";
 
 render(() => <App />, document.getElementById("app")!);

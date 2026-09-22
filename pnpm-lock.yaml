@@ -190,7 +190,7 @@ importers:
 
   playground:
     dependencies:
-      '@zephyr/core':
+      '@fluxonjs/core':
         specifier: workspace:*
         version: link:../packages/core
 

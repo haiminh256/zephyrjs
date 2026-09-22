@@ -93,7 +93,7 @@ export function callback<Args extends any[], R>(
   };
 }
 
-export const Fragment = Symbol("quantum-js.Fragment");
+export const Fragment = Symbol("fluxonjs.Fragment");
 
 function appendChildren(parent: Node, children: any[]) {
   children.flat().forEach((child) => {
@@ -115,7 +115,7 @@ function appendChildren(parent: Node, children: any[]) {
   });
 }
 
-export function quantum-js(
+export function fluxonjs(
   tag: string | Function | symbol,
   props: Record<string, any> | null,
   ...children: any[]
@@ -166,7 +166,7 @@ export function quantum-js(
   return element;
 }
 
-export const jsx = { createElement: quantum-js };
+export const jsx = { createElement: fluxonjs };
 
 export function render(component: () => HTMLElement, container: HTMLElement) {
   container.innerHTML = "";
