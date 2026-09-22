@@ -1,0 +1,22 @@
+{
+  "name": "zephyrjs",
+  "version": "1.0.0",
+  "description": "A javascript framework",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm --filter playground dev",
+    "build:core": "pnpm --filter @zephyr/core build"
+  },
+  "keywords": [],
+  "author": "haiminh256",
+  "license": "ISC",
+  "packageManager": "pnpm@12.5.1",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "@typescript/typescript6": "^6.0.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0",
+    "vite-plugin-dts": "^5.1.1"
+  }
+}

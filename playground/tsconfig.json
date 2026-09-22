@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@zephyr/core",
+    "skipLibCheck": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@zephyr/core": ["../packages/core/src/index.ts"],
+      "@zephyr/core/jsx-runtime": ["../packages/core/src/jsx-runtime.ts"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "../packages/core/src/**/*"
+  ]
+}
