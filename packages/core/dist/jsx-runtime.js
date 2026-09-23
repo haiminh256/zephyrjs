@@ -1,10 +1,2 @@
-import {
-  Fragment,
-  jsx
-} from "./chunk-UWTOMOEI.js";
-export {
-  Fragment,
-  jsx,
-  jsx as jsxs
-};
+import "./chunk-6DQHC4VG.js";
 //# sourceMappingURL=jsx-runtime.js.map

@@ -1,54 +1,43 @@
 export {};
-
 declare global {
-  namespace JSX {
-    type Element = HTMLElement | DocumentFragment;
-    type ElementType = string | symbol | ((props: any) => any);
-
-    interface ElementChildrenAttribute {
-      children: {};
+    namespace JSX {
+        type Element = HTMLElement | DocumentFragment | Node;
+        type ElementType = string | symbol | ((props: any) => any);
+        interface ElementChildrenAttribute {
+            children: {};
+        }
+        interface HTMLAttributes {
+            id?: string;
+            class?: string;
+            className?: string;
+            style?: string | Record<string, string | number>;
+            ref?: {
+                current?: Node | null;
+            } | ((el: Node) => void);
+            children?: any;
+            [key: string]: any;
+        }
+        interface DOMAttributes extends HTMLAttributes {
+            onClick?: (e: MouseEvent & {
+                currentTarget: HTMLElement;
+            }) => void;
+            onInput?: (e: InputEvent & {
+                target: HTMLInputElement | HTMLTextAreaElement;
+            }) => void;
+            onChange?: (e: Event & {
+                target: HTMLInputElement | HTMLSelectElement;
+            }) => void;
+            onSubmit?: (e: SubmitEvent & {
+                currentTarget: HTMLFormElement;
+            }) => void;
+            onKeyDown?: (e: KeyboardEvent) => void;
+            onKeyUp?: (e: KeyboardEvent) => void;
+            onFocus?: (e: FocusEvent) => void;
+            onBlur?: (e: FocusEvent) => void;
+        }
+        interface IntrinsicElements {
+            [elemName: string]: DOMAttributes;
+        }
     }
-
-    interface HTMLAttributes {
-      id?: string;
-      class?: string;
-      className?: string;
-      style?: string | Record<string, string | number>;
-      children?: any;
-      [key: string]: any;
-    }
-
-    interface DOMAttributes extends HTMLAttributes {
-      onClick?: (e: MouseEvent) => void;
-      onInput?: (e: InputEvent) => void;
-      onChange?: (e: Event) => void;
-      onSubmit?: (e: SubmitEvent) => void;
-    }
-
-    interface IntrinsicElements {
-      [elemName: string]: DOMAttributes;
-    }
-  }
 }
-
-declare module "@fluxonjs/core" {
-  export namespace JSX {
-    type Element = globalThis.JSX.Element;
-    type ElementType = globalThis.JSX.ElementType;
-    type ElementChildrenAttribute = globalThis.JSX.ElementChildrenAttribute;
-    type HTMLAttributes = globalThis.JSX.HTMLAttributes;
-    type DOMAttributes = globalThis.JSX.DOMAttributes;
-    type IntrinsicElements = globalThis.JSX.IntrinsicElements;
-  }
-}
-
-declare module "@fluxonjs/core/jsx-runtime" {
-  export namespace JSX {
-    type Element = globalThis.JSX.Element;
-    type ElementType = globalThis.JSX.ElementType;
-    type ElementChildrenAttribute = globalThis.JSX.ElementChildrenAttribute;
-    type HTMLAttributes = globalThis.JSX.HTMLAttributes;
-    type DOMAttributes = globalThis.JSX.DOMAttributes;
-    type IntrinsicElements = globalThis.JSX.IntrinsicElements;
-  }
-}
+//# sourceMappingURL=jsx-runtime.d.ts.map

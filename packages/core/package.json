@@ -1,6 +1,6 @@
 {
   "name": "@fluxonjs/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "A lightweight reactive UI framework powered by Signals and Automatic JSX.",
   "main": "./dist/index.js",
@@ -16,7 +16,7 @@
       "import": "./dist/jsx-runtime.js"
     },
     "./jsx-dev-runtime": {
-      "types": "./dist/jsx-runtime.d.ts",
+      "types": "./dist/jsx-dev-runtime.d.ts",
       "import": "./dist/jsx-dev-runtime.js"
     }
   },
@@ -28,7 +28,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && tsc --emitDeclarationOnly",
     "prepublishOnly": "pnpm run build"
   },
   "keywords": [
@@ -42,6 +42,7 @@
   "author": "haiminh256",
   "license": "MIT",
   "devDependencies": {
-    "tsup": "^8.5.1"
+    "tsup": "^8.5.1",
+    "typescript": "^5.0.0"
   }
 }

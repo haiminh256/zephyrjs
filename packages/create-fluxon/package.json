@@ -1,0 +1,29 @@
+{
+  "name": "create-fluxon",
+  "version": "0.1.2",
+  "type": "module",
+  "bin": {
+    "create-fluxon": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "template-vanilla-ts"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "kolorist": "^1.8.0",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/prompts": "^2.4.9",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

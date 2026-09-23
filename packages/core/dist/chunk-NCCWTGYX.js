@@ -24,6 +24,13 @@ function effect(fn) {
   execute.deps = /* @__PURE__ */ new Set();
   execute();
 }
+var ReactiveNode = class extends String {
+  __getter;
+  constructor(getter, value) {
+    super(value !== null && value !== void 0 ? String(value) : "");
+    this.__getter = getter;
+  }
+};
 function signal(initialValue) {
   let value = initialValue;
   const subscribers = /* @__PURE__ */ new Set();
@@ -32,8 +39,12 @@ function signal(initialValue) {
       subscribers.add(activeEffect);
       activeEffect.deps?.add(subscribers);
     }
+    if (!activeEffect) {
+      return new ReactiveNode(getter, value);
+    }
     return value;
   };
+  getter.__isSignalGetter = true;
   const setter = (newValue) => {
     const nextValue = typeof newValue === "function" ? newValue(value) : newValue;
     if (value !== nextValue) {
@@ -63,12 +74,27 @@ function callback(fn) {
 var Fragment = /* @__PURE__ */ Symbol("fluxonjs.Fragment");
 function appendChildren(parent, children) {
   children.flat().forEach((child) => {
-    if (child === null || child === void 0 || child === false) return;
-    if (typeof child === "function") {
+    if (child === null || child === void 0 || typeof child === "boolean") return;
+    if (child instanceof ReactiveNode) {
+      const textNode = document.createTextNode("");
+      parent.appendChild(textNode);
+      const signalGetter = child.__getter;
+      effect(() => {
+        const val = signalGetter();
+        textNode.nodeValue = val === null || val === void 0 || typeof val === "boolean" ? "" : String(val);
+      });
+    } else if (typeof child === "function") {
+      if (child.__isSignalGetter) {
+        console.warn(
+          "[FluxonJS] Kh\xF4ng \u0111\u01B0\u1EE3c truy\u1EC1n th\u1EB3ng signal. H\xE3y d\xF9ng count() ho\u1EB7c () => count()"
+        );
+        return;
+      }
       const textNode = document.createTextNode("");
       parent.appendChild(textNode);
       effect(() => {
-        textNode.nodeValue = String(child());
+        const val = child();
+        textNode.nodeValue = val === null || val === void 0 || typeof val === "boolean" ? "" : String(val);
       });
     } else if (Array.isArray(child)) {
       appendChildren(parent, child);
@@ -80,46 +106,66 @@ function appendChildren(parent, children) {
   });
 }
 function fluxonjs(tag, props, ...children) {
+  const normalizedProps = props || {};
+  const {
+    children: propsChildren,
+    __source,
+    __self,
+    key,
+    ...restProps
+  } = normalizedProps;
+  let rawChildren = [];
+  if (children.length > 0) {
+    rawChildren = children.flat();
+  } else if (propsChildren !== void 0) {
+    rawChildren = Array.isArray(propsChildren) ? propsChildren.flat() : [propsChildren];
+  }
   if (tag === Fragment) {
     const docFragment = document.createDocumentFragment();
-    appendChildren(docFragment, children);
+    appendChildren(docFragment, rawChildren);
     return docFragment;
   }
   if (typeof tag === "function") {
-    const mergedProps = { ...props, children: children.flat() };
-    return tag(mergedProps);
+    return tag({ ...restProps, children: rawChildren });
   }
   const element = document.createElement(tag);
-  if (props) {
-    Object.keys(props).forEach((key) => {
-      if (key === "children") return;
-      const value = props[key];
-      if (key.startsWith("on") && typeof value === "function") {
-        const eventName = key.substring(2).toLowerCase();
-        element.addEventListener(eventName, value);
-      } else if (typeof value === "function") {
-        effect(() => {
-          const currentVal = value();
-          if (key in element) {
-            element[key] = currentVal;
-          } else {
-            element.setAttribute(key, String(currentVal));
-          }
-        });
-      } else if (key in element) {
-        element[key] = value;
-      } else {
-        element.setAttribute(key, value);
-      }
-    });
-  }
-  appendChildren(element, children);
+  Object.keys(restProps).forEach((propKey) => {
+    const value = restProps[propKey];
+    if (propKey.startsWith("on") && typeof value === "function") {
+      const eventName = propKey.substring(2).toLowerCase();
+      element.addEventListener(eventName, value);
+    } else if (typeof value === "function") {
+      effect(() => {
+        const currentVal = value();
+        if (propKey in element) {
+          element[propKey] = currentVal;
+        } else {
+          element.setAttribute(propKey, String(currentVal));
+        }
+      });
+    } else if (value instanceof ReactiveNode) {
+      const getter = value.__getter;
+      effect(() => {
+        const currentVal = getter();
+        if (propKey in element) {
+          element[propKey] = currentVal;
+        } else {
+          element.setAttribute(propKey, String(currentVal));
+        }
+      });
+    } else if (propKey in element) {
+      element[propKey] = value;
+    } else {
+      element.setAttribute(propKey, value);
+    }
+  });
+  appendChildren(element, rawChildren);
   return element;
 }
 var jsx = { createElement: fluxonjs };
-function render(component, container) {
-  container.innerHTML = "";
-  container.appendChild(component());
+function render(code, container) {
+  const node = typeof code === "function" ? code() : code;
+  container.appendChild(node);
 }
 function For(props) {
   const fragment = document.createDocumentFragment();
@@ -161,28 +207,15 @@ function For(props) {
   return fragment;
 }
 
-// src/jsx-runtime.ts
-function jsx2(tag, props) {
-  const { children, ...restProps } = props || {};
-  let finalChildren = children;
-  if (typeof children !== "function" && children !== void 0) {
-    finalChildren = Array.isArray(children) ? children : [children];
-  } else if (children === void 0) {
-    finalChildren = [];
-  }
-  return fluxonjs(tag, restProps, ...Array.isArray(finalChildren) ? finalChildren : [finalChildren]);
-}
-
 export {
-  jsx2 as jsx,
   effect,
   signal,
   memo,
   callback,
   Fragment,
   fluxonjs,
-  jsx as jsx2,
+  jsx,
   render,
   For
 };
-//# sourceMappingURL=chunk-UWTOMOEI.js.map
+//# sourceMappingURL=chunk-NCCWTGYX.js.map

@@ -5,19 +5,18 @@ import {
   effect,
   fluxonjs,
   jsx,
-  jsx2,
   memo,
   render,
   signal
-} from "./chunk-UWTOMOEI.js";
+} from "./chunk-NCCWTGYX.js";
+import "./chunk-6DQHC4VG.js";
 export {
   For,
   Fragment,
   callback,
   effect,
   fluxonjs,
-  jsx2 as jsx,
-  jsx as jsxs,
+  jsx,
   memo,
   render,
   signal
