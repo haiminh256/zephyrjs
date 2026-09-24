@@ -1,4 +1,4 @@
-import { render, fluxonjs, Fragment } from "@fluxonjs/core";
+import { render } from "@fluxonjs/core";
 import App from "./App";
 
 const root = document.getElementById("app");

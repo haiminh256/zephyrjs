@@ -12,3 +12,4 @@ function jsx(type: any, props: any, key?: any) {
 const jsxs = jsx;
 
 export { jsx, jsxs, Fragment };
+export type { JSX } from "./jsx"

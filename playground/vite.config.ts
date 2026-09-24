@@ -1,7 +1,14 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
 
 export default defineConfig({
   esbuild: {
-    jsxInject: `import { fluxonjs, Fragment } from '@fluxonjs/core'`
-  }
+    jsx: "automatic",
+    jsxImportSource: "@fluxonjs/core",
+  },
+  resolve: {
+    dedupe: ["@fluxonjs/core"],
+  },
+  optimizeDeps: {
+    exclude: ["@fluxonjs/core"],
+  },
 });

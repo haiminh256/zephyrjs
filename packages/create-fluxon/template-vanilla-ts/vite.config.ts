@@ -5,4 +5,10 @@ export default defineConfig({
     jsx: "automatic",
     jsxImportSource: "@fluxonjs/core",
   },
+  resolve: {
+    dedupe: ["@fluxonjs/core"],
+  },
+  optimizeDeps: {
+    exclude: ["@fluxonjs/core"],
+  },
 });

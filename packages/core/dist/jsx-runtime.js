@@ -24,11 +24,18 @@ function effect(fn) {
   execute.deps = /* @__PURE__ */ new Set();
   execute();
 }
-var ReactiveNode = class extends String {
+var ReactiveNode = class {
   __getter;
+  _value;
   constructor(getter, value) {
-    super(value !== null && value !== void 0 ? String(value) : "");
     this.__getter = getter;
+    this._value = value;
+  }
+  toString() {
+    return String(this._value);
+  }
+  valueOf() {
+    return this._value;
   }
 };
 var Fragment = /* @__PURE__ */ Symbol("fluxonjs.Fragment");

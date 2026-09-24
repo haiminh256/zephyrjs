@@ -19,3 +19,4 @@ export function jsxDEV(
 export const jsx = jsxDEV;
 export const jsxs = jsxDEV;
 export const Fragment = InternalFragment;
+export type { JSX } from "./jsx"

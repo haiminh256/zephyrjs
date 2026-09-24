@@ -1,6 +1,6 @@
 {
   "name": "create-fluxon",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "type": "module",
   "bin": {
     "create-fluxon": "./dist/index.js"

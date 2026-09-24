@@ -45,16 +45,20 @@ export function effect(fn: () => void): void {
   execute();
 }
 
-/**
- * 📌 REACTIVE NODE WRAPPER
- * Giúp bọc giá trị trả về của Signal để JSX nhận diện được
- */
-class ReactiveNode extends String {
+class ReactiveNode {
   public __getter: () => any;
+  private _value: any;
 
   constructor(getter: () => any, value: any) {
-    super(value !== null && value !== undefined ? String(value) : "");
     this.__getter = getter;
+    this._value = value;
+  }
+  toString() {
+    return String(this._value);
+  }
+
+  valueOf() {
+    return this._value;
   }
 }
 
