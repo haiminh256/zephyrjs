@@ -1,4 +1,2 @@
 allowBuilds:
   esbuild: true
-minimumReleaseAgeExclude:
-  - '@fluxonjs/core@0.1.0'
