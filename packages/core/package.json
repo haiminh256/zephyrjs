@@ -1,6 +1,6 @@
 {
   "name": "@fluxonjs/core",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "type": "module",
   "description": "A lightweight reactive UI framework powered by Signals and Automatic JSX.",
   "main": "./dist/index.js",

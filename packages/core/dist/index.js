@@ -34,20 +34,6 @@ function effect(fn) {
   execute.deps = /* @__PURE__ */ new Set();
   execute();
 }
-var ReactiveNode = class {
-  __getter;
-  _value;
-  constructor(getter, value) {
-    this.__getter = getter;
-    this._value = value;
-  }
-  toString() {
-    return String(this._value);
-  }
-  valueOf() {
-    return this._value;
-  }
-};
 function signal(initialValue) {
   let value = initialValue;
   const subscribers = /* @__PURE__ */ new Set();
@@ -55,9 +41,6 @@ function signal(initialValue) {
     if (activeEffect) {
       subscribers.add(activeEffect);
       activeEffect.deps?.add(subscribers);
-    }
-    if (!activeEffect) {
-      return new ReactiveNode(getter, value);
     }
     return value;
   };
@@ -92,18 +75,10 @@ var Fragment = /* @__PURE__ */ Symbol("fluxonjs.Fragment");
 function appendChildren(parent, children) {
   children.flat().forEach((child) => {
     if (child === null || child === void 0 || typeof child === "boolean") return;
-    if (child instanceof ReactiveNode) {
-      const textNode = document.createTextNode("");
-      parent.appendChild(textNode);
-      const signalGetter = child.__getter;
-      effect(() => {
-        const val = signalGetter();
-        textNode.nodeValue = val === null || val === void 0 || typeof val === "boolean" ? "" : String(val);
-      });
-    } else if (typeof child === "function") {
+    if (typeof child === "function") {
       if (child.__isSignalGetter) {
         console.warn(
-          "[FluxonJS] Kh\xF4ng \u0111\u01B0\u1EE3c truy\u1EC1n th\u1EB3ng signal. H\xE3y d\xF9ng count() ho\u1EB7c () => count()"
+          "[FluxonJS] Kh\xF4ng \u0111\u01B0\u1EE3c truy\u1EC1n th\u1EB3ng signal. H\xE3y d\xF9ng () => count()"
         );
         return;
       }
@@ -154,16 +129,6 @@ function fluxonjs(tag, props, ...children) {
     } else if (typeof value === "function") {
       effect(() => {
         const currentVal = value();
-        if (propKey in element) {
-          element[propKey] = currentVal;
-        } else {
-          element.setAttribute(propKey, String(currentVal));
-        }
-      });
-    } else if (value instanceof ReactiveNode) {
-      const getter = value.__getter;
-      effect(() => {
-        const currentVal = getter();
         if (propKey in element) {
           element[propKey] = currentVal;
         } else {

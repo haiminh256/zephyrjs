@@ -1,14 +1,21 @@
 import { defineConfig } from "vite";
+import path from "path";
 
 export default defineConfig({
   esbuild: {
-    jsx: "automatic",
-    jsxImportSource: "@fluxonjs/core",
+    jsx: "transform",
+    jsxFactory: "fluxonjs",
+    jsxFragment: "Fragment",
+    jsxInject: `import { fluxonjs, Fragment } from "@fluxonjs/core"`,
   },
   resolve: {
-    dedupe: ["@fluxonjs/core"],
+    alias: {
+      "@fluxonjs/core": path.resolve(import.meta.dirname, "../packages/core/src/index.ts"),
+      "@fluxonjs/router": path.resolve(import.meta.dirname, "../packages/router/src/index.ts"),
+    },
+    dedupe: ["@fluxonjs/core", "@fluxonjs/router"],
   },
   optimizeDeps: {
-    exclude: ["@fluxonjs/core"],
+    exclude: ["@fluxonjs/core", "@fluxonjs/router"],
   },
 });

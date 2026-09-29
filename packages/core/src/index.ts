@@ -45,23 +45,6 @@ export function effect(fn: () => void): void {
   execute();
 }
 
-class ReactiveNode {
-  public __getter: () => any;
-  private _value: any;
-
-  constructor(getter: () => any, value: any) {
-    this.__getter = getter;
-    this._value = value;
-  }
-  toString() {
-    return String(this._value);
-  }
-
-  valueOf() {
-    return this._value;
-  }
-}
-
 export function signal<T>(initialValue: T): [SignalGetter<T>, Setter<T>] {
   let value = initialValue;
   const subscribers = new Set<EffectFn>();
@@ -71,11 +54,6 @@ export function signal<T>(initialValue: T): [SignalGetter<T>, Setter<T>] {
       subscribers.add(activeEffect);
       activeEffect.deps?.add(subscribers);
     }
-
-    if (!activeEffect) {
-      return new ReactiveNode(getter, value) as any;
-    }
-
     return value;
   };
 
@@ -122,23 +100,11 @@ export const Fragment = Symbol("fluxonjs.Fragment");
 function appendChildren(parent: Node, children: any[]) {
   children.flat().forEach((child) => {
     if (child === null || child === undefined || typeof child === "boolean") return;
-    if (child instanceof ReactiveNode) {
-      const textNode = document.createTextNode("");
-      parent.appendChild(textNode);
 
-      const signalGetter = child.__getter;
-      effect(() => {
-        const val = signalGetter();
-        textNode.nodeValue =
-          val === null || val === undefined || typeof val === "boolean"
-            ? ""
-            : String(val);
-      });
-    }
-    else if (typeof child === "function") {
+    if (typeof child === "function") {
       if ((child as any).__isSignalGetter) {
         console.warn(
-          "[FluxonJS] Không được truyền thẳng signal. Hãy dùng count() hoặc () => count()"
+          "[FluxonJS] Không được truyền thẳng signal. Hãy dùng () => count()"
         );
         return;
       }
@@ -187,25 +153,30 @@ export function fluxonjs(
     rawChildren = Array.isArray(propsChildren) ? propsChildren.flat() : [propsChildren];
   }
 
+  // 1. Fragment
   if (tag === Fragment) {
     const docFragment = document.createDocumentFragment();
     appendChildren(docFragment, rawChildren);
     return docFragment;
   }
 
+  // 2. Component
   if (typeof tag === "function") {
     return tag({ ...restProps, children: rawChildren });
   }
 
+  // 3. HTML Element
   const element = document.createElement(tag as string);
 
   Object.keys(restProps).forEach((propKey) => {
     const value = restProps[propKey];
 
+    // Event
     if (propKey.startsWith("on") && typeof value === "function") {
       const eventName = propKey.substring(2).toLowerCase();
       element.addEventListener(eventName, value);
     }
+    // Reactive prop (function)
     else if (typeof value === "function") {
       effect(() => {
         const currentVal = value();
@@ -215,17 +186,8 @@ export function fluxonjs(
           element.setAttribute(propKey, String(currentVal));
         }
       });
-    } else if (value instanceof ReactiveNode) {
-      const getter = value.__getter;
-      effect(() => {
-        const currentVal = getter();
-        if (propKey in element) {
-          (element as any)[propKey] = currentVal;
-        } else {
-          element.setAttribute(propKey, String(currentVal));
-        }
-      });
     }
+    // Static prop
     else if (propKey in element) {
       (element as any)[propKey] = value;
     } else {

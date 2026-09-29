@@ -6,6 +6,9 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@fluxonjs/core": "workspace:*"
+    "@fluxonjs/core": "workspace:*",
+    "@fluxonjs/router": "workspace:*",
+    "@types/uuid": "^11.0.0",
+    "uuid": "^14.0.2"
   }
 }

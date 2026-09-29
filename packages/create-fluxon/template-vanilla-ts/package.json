@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fluxonjs/core": "^0.1.4"
+    "@fluxonjs/core": "^0.1.7"
   },
   "devDependencies": {
     "typescript": "^5.0.0",

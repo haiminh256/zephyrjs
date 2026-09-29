@@ -5,7 +5,7 @@ export default defineConfig({
     "src/index.ts",
     "src/jsx-runtime.ts",
     "src/jsx-dev-runtime.ts",
-    "src/jsx.d.ts"
+    "src/jsx.ts"
   ],
   format: ["esm"],
   dts: false,

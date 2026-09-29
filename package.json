@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm --filter playground dev",
-    "build:core": "pnpm --filter @fluxonjs/core build"
+    "build:core": "pnpm --filter @fluxonjs/core build",
+    "build:router": "pnpm --filter @fluxonjs/router build"
   },
   "keywords": [],
   "author": "haiminh256",

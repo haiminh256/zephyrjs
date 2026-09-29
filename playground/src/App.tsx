@@ -1,19 +1,14 @@
-import { signal } from "@fluxonjs/core"
+import { Link, Router } from "@fluxonjs/router";
+import { routes } from "./routes/routes";
 
-export default function App() {
-  const [count, setCount] = signal(0)
-
+export default function App(){
   return (
-    <div>
-      <p>
-        {count()}
-      </p>
+    <>
+      <nav>
+        
+      </nav>
 
-      <button onClick={() => {
-        setCount(count() + 1)
-      }}>
-        increase
-      </button>
-    </div>
+      <Router routes={routes}/>
+    </>
   )
 }
